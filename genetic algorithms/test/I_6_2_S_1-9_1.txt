@@ -1,0 +1,23 @@
+6 2 1           # Makine sayısı, iş sayısı
+2               # Makine sayısı
+0 1 1 4         /*
+0 87 1 21          Her bir 
+0 28 1 68          işin her 
+0 32 1 17          bir makinede
+0 38 1 43          çalışma süresi 
+0 9 1 48        		*/
+SSD
+M0
+0 1 8 1 3 9      /* 1.Makinede
+4 0 7 3 7 8         işler
+7 3 0 2 3 5         arası 
+3 8 3 0 5 2         geçişte
+8 3 7 9 0 5         setup
+8 8 1 2 2 0         süreleri */
+M1
+0 5 1 6 1 7      /* 2.Makinede
+6 0 7 7 6 2         işler
+7 6 0 9 6 9         arası
+3 7 3 0 1 7         geçişte
+5 8 5 6 0 9         setup
+7 4 1 7 9 0         süreleri */

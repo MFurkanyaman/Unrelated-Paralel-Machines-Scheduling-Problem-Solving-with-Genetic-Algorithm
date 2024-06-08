@@ -1,0 +1,46 @@
+function [arapop] = mutation(arapop, pmutation, p_size, d, num_machines)
+% pmutation: mutasyon olma olasılığı
+% arapop: doğal seçilimden sonra oluşan popülasyon
+% p_size: popülasyon büyüklüğü
+% d: kromozom boyutu (iş sayısı)
+% num_machines: makine sayısı
+
+rs = unifrnd(0, 1, [p_size, d]); % Rastgele sayıların satır sayısı popülasyon büyüklüğü kadar, sütun sayısı kromozom boyutu kadar
+rand=unifrnd(0,1);
+
+for i = 1:length(arapop)
+    control = 0;
+    child = zeros(1, d*2);
+    child(1 :) = arapop{i}(1, :)
+    for j = 1:d
+
+        if (rs(i, j) < pmutation)
+             control = 1;
+
+             
+            % Makine numarasını değiştir
+            currentMachine = arapop{i}(2, j); % Mevcut makine numarasını al
+            newMachine = currentMachine;
+            while newMachine == currentMachine
+                newMachine = randi([1, num_machines]); % Farklı bir makine numarası seç
+            end
+            %arapop{i}(2, j) = newMachine; 
+           
+        end
+          
+
+    end
+    
+    % İş kimliklerini mutasyona uğrat
+    if rand < pmutation
+        % Rastgele bir indexten itibaren iş kimliklerini yer değiştir
+        swapIndex = randi([1, d-1]); % En az iki eleman olması için 1 ile d-1 arasında bir index seç
+        jobIDs = arapop{i}(1, :);
+        % Seçilen indexten itibaren iş kimliklerini tersine çevir
+        temp = [jobIDs(1:swapIndex-1), fliplr(jobIDs(swapIndex:end))];
+        %arapop{i}(1, :) = [jobIDs(1:swapIndex-1), fliplr(jobIDs(swapIndex:end))];
+        arapop{end+1}(1, :) = temp;
+        fprintf('%d. kromozomda %d. indexten itibaren işler mutasyona uğradı.\n', i, swapIndex);
+    end
+end
+end
